@@ -16,7 +16,9 @@ void StudentRoll::insertAtTail(const Student &s) {
   else{
     tail->next=q;
     tail=q;
-  } 
+  }
+  q=NULL;
+  delete q;
 }
 
 std::string StudentRoll::toString() const {
@@ -40,6 +42,7 @@ StudentRoll::StudentRoll(const StudentRoll &orig) {
     insertAtTail(*(q->s));
     q=q->next;
   }
+  delete q;
 }
 
 StudentRoll::~StudentRoll() {
