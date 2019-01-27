@@ -1,9 +1,11 @@
+
 #include "student.h"
 #include <string>
 #include <cstring>
 #include <sstream>
 
 Student::Student(const char * const name, int perm) {
+  this->name=NULL;
   this->setName(name);
   this->setPerm(perm);
 }
@@ -17,21 +19,28 @@ const char * const Student::getName() const {
 }
 
 void Student::setPerm(const int permNumber) {
-  this->perm=permNumber;
+  perm=permNumber;
 }
 
 void Student::setName(const char * const name) {
+  if(this->name!=NULL){
+    
+    delete [] this->name;
+  }
+  this->name=NULL;
   this->name = new char[strlen(name)+1];
   strcpy(this->name,name);
 }
 
 
 Student::Student(const Student &orig) {
+  this->name=NULL;
   this->setName(orig.getName());
   this->setPerm(orig.getPerm());
 }
 
 Student::~Student() {
+  delete [] name;
 }
 
 Student & Student::operator=(const Student &right) {
@@ -39,9 +48,14 @@ Student & Student::operator=(const Student &right) {
   // They avoid problems with self-assignment where you might free up 
   // memory before you copy from it.  (e.g. x = x)
 
-  if (&right == this) 
+  if (&right == this){
     return (*this);
-  
+  }
+
+  if(this->name!=NULL)
+    delete [] this->name;
+    
+  this->name=NULL;
   this->setName(right.getName());
   this->setPerm(right.getPerm());
 

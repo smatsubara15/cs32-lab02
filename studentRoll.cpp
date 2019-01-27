@@ -7,6 +7,8 @@ StudentRoll::StudentRoll() {
 
 void StudentRoll::insertAtTail(const Student &s) {
   Node *q=new Node();
+  if(q->s!=NULL)
+    delete q->s;
   q->s=new Student(s);
   q->next=NULL;
   if(head==NULL && tail==NULL){
@@ -32,6 +34,7 @@ std::string StudentRoll::toString() const {
     q=q->next;
   }
   oss<<"]";
+  //  delete q;
   return oss.str();
 }
 
@@ -42,13 +45,15 @@ StudentRoll::StudentRoll(const StudentRoll &orig) {
     insertAtTail(*(q->s));
     q=q->next;
   }
-  delete q;
+  //  delete q;
 }
 
 StudentRoll::~StudentRoll() {
+  Node* x;
   while(head){
-    Node* x=head;
+    x=head;
     head=head->next;
+    delete [] x->s->getName();
     delete x;
   }
 }
