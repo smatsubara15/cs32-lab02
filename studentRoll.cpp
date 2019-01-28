@@ -49,12 +49,12 @@ StudentRoll::StudentRoll(const StudentRoll &orig) {
 }
 
 StudentRoll::~StudentRoll() {
-  Node* x;
-  while(head){
-    x=head;
-    head=head->next;
-    delete [] x->s->getName();
+  Node* x=head;
+  while(x){
+    Node *next=x->next;
+    delete x->s;
     delete x;
+    x=next;
   }
 }
 
